@@ -59,7 +59,7 @@ L=D1+D2+N*Dc
 
 #now lets define the max speed, v, and the points per distance we want.
 v=.25#m/s
-ppm=2#points/meter
+ppm=20#points/meter
 
 #total points
 Points=ppm*L#points
@@ -84,8 +84,8 @@ t3 = int(round(ppm*D2,0))
 omega = 2*math.pi/(t2/N)
 
 
-waypoints = numpy.zeros((t1+t2+t3,4)) #zeros matrix of 4 columns and t1+t2+t3 rows
-
+waypoints = numpy.zeros((t1+t2+t3,5)) #zeros matrix of 5 columns and t1+t2+t3 rows
+#The new fifth column will be the time
 
 #for loop only has a few small changes
 #indexing starts at 0 not 1
@@ -111,15 +111,16 @@ for ii in range (0, t1+t2+t3):
         waypoints[ii,1] = (y0-yAdj)/(t3)*(ii-t1-t2)+yAdj
         waypoints[ii,2] = (zr-zt)/(t3)*(ii-t1-t2)+zt
         waypoints[ii,3] = yaw0 + N*2*math.pi
+    waypoints[ii,4] = timebtw*ii
 ii+1
 
-print(Points)
+print(waypoints)
 
 
 x = waypoints[:,0] #x values
 y = waypoints[:,1] #y values
 z = waypoints[:,2] #z values
 yaw = waypoints[:,3] #yaw values
-plt.plot(x, y,'*')   #plot x vs y with * as the symbol
+plt.plot(x,y,'*')   #plot x vs y with * as the symbol
 
 plt.show()  #show the plot
